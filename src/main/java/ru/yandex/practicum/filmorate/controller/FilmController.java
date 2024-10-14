@@ -24,10 +24,12 @@ public class FilmController {
     }
 
     @PostMapping
+
     public Film createFilm(@RequestBody @Valid Film film) {
+        log.info("Пришел POST запрос /films с телом: {}", film);
         film.setId(++generatedId);
         this.films.put(film.getId(), film);
-        log.info("Фильм под название {} создан.", film.getName());
+        log.info("Отправлен ответ /films с телом: {}", film);
         return film;
     }
 
@@ -38,13 +40,9 @@ public class FilmController {
             log.info("Фильма с таким id {} не существует.", id);
             throw new ValidationException("Такого фильма не существует.");
         } else {
-            Film updateFilm = films.get(film.getId());
-            updateFilm.setName(film.getName());
-            updateFilm.setDescription(film.getDescription());
-            updateFilm.setDuration(film.getDuration());
-            updateFilm.setReleaseDate(film.getReleaseDate());
-            log.info("Фильм под названием {} обновлен", updateFilm.getName());
-            return updateFilm;
+            this.films.put(id,film);
+            log.info("Фильм под названием {} обновлен", film.getName());
+            return film;
         }
     }
 

@@ -26,9 +26,10 @@ public class UserController {
     @PostMapping
     public User createUser(@RequestBody @Valid User user) {
         this.validateUser(user);
+        log.info("Пришел POST запрос /users с телом: {}", user);
         user.setId(++generatedId);
         this.users.put(user.getId(), user);
-        log.info("Пользователь {} создан", user);
+        log.info("Отправлен ответ /users с телом: {}", user);
         return user;
     }
 
@@ -36,7 +37,7 @@ public class UserController {
     public User updateUser(@RequestBody @Valid User user) {
         int id = user.getId();
         if (!this.users.containsKey(id)) {
-            log.debug("Такого пользователя {} не существует.", user);
+            log.info("Такого пользователя {} не существует.", user);
             throw new ValidationException("Такого пользователя не существует");
         } else {
             this.validateUser(user);
