@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import lombok.Generated;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,12 +18,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.yandex.practicum.filmorate.model.User;
 
+@Slf4j
 @RestController
 @RequestMapping({"/users"})
 public class UserController {
     @Generated
-    private static final Logger log = LoggerFactory.getLogger(UserController.class);
-    private static int generatedId = 0;
+    private  int generatedId = 0;
     private final Map<Integer, User> users = new HashMap();
 
     public UserController() {
@@ -33,7 +34,7 @@ public class UserController {
         this.validateUser(user);
         user.setId(++generatedId);
         this.users.put(user.getId(), user);
-        log.debug("Пользователь {} создан", user);
+        log.info("Пользователь {} создан", user);
         return user;
     }
 
@@ -46,8 +47,14 @@ public class UserController {
         } else {
             this.validateUser(user);
             this.users.put(id, user);
+            log.info("Информация о пользователе {} обновлена.", user);
             return user;
         }
+    }
+
+    @GetMapping
+    public List<User> getAllUsers() {
+        return new ArrayList(this.users.values());
     }
 
     private void validateUser(User user) {
@@ -55,10 +62,5 @@ public class UserController {
             user.setName(user.getLogin());
         }
 
-    }
-
-    @GetMapping
-    public List<User> getAllUsers() {
-        return new ArrayList(this.users.values());
     }
 }
