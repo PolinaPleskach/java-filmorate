@@ -26,11 +26,11 @@ public class ValidateFilmTest {
     @Test
     void validateFilmName() {
         film = new Film();
-        film.setId(1);
+        film.setId(1L);
         film.setName("");
         film.setDescription("Описание вашего фильма");
         film.setReleaseDate(LocalDate.of(2024,12,5));
-        film.setDuration(120);
+        film.setDuration(120L);
 
         Set<ConstraintViolation<Film>> violations = validator.validate(film);
         assertEquals(1, violations.size());
@@ -40,11 +40,11 @@ public class ValidateFilmTest {
     @Test
     void validateFilmReleaseDate() {
         film = new Film();
-        film.setId(1);
+        film.setId(1L);
         film.setName("Название фильма");
         film.setDescription("Описание вашего фильма");
         film.setReleaseDate(LocalDate.of(1895,12,27));
-        film.setDuration(120);
+        film.setDuration(120L);
 
         Set<ConstraintViolation<Film>> violations = validator.validate(film);
         assertEquals(1, violations.size());
@@ -54,11 +54,11 @@ public class ValidateFilmTest {
     @Test
     void validateFilmDuration() {
         film = new Film();
-        film.setId(1);
+        film.setId(1L);
         film.setName("Название фильма");
         film.setDescription("");
         film.setReleaseDate(LocalDate.of(2024,12,5));
-        film.setDuration(-100);
+        film.setDuration((long) -100);
 
         Set<ConstraintViolation<Film>> violations = validator.validate(film);
         assertEquals(1, violations.size());

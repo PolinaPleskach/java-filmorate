@@ -25,7 +25,7 @@ public class ValidateUserTest {
     @Test
     void validateUserEmailIsEmpty() {
         user = new User();
-        user.setId(1);
+        user.setId(1L);
         user.setEmail("");
         user.setLogin("yandex");
         user.setName("Yandex");
@@ -39,7 +39,7 @@ public class ValidateUserTest {
     @Test
     void validateUserEmailIsRegexp() {
         user = new User();
-        user.setId(1);
+        user.setId(1L);
         user.setEmail("yandex.ru");
         user.setLogin("yandex");
         user.setName("Yandex");
@@ -53,7 +53,7 @@ public class ValidateUserTest {
     @Test
     void validateUserLoginInSpaces() {
         user = new User();
-        user.setId(1);
+        user.setId(1L);
         user.setEmail("123@yandex.ru");
         user.setLogin("yan dex");
         user.setName("Yandex");
@@ -67,7 +67,7 @@ public class ValidateUserTest {
     @Test
     void validateUserLoginBirthDay() {
         user = new User();
-        user.setId(1);
+        user.setId(1L);
         user.setEmail("123@yandex.ru");
         user.setLogin("yandex");
         user.setName("Yandex");
