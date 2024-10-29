@@ -12,11 +12,11 @@ import java.lang.annotation.Target;
 @Constraint(validatedBy = ValidateDate.class)
 public @interface ReleaseDateOfFilm {
 
-    String message() default "Введите дату релиза не ранее {standartDate}";
+    String message() default "Введите дату релиза не ранее {standardDate}";
 
     Class<?>[] groups() default {};
 
     Class<?>[] payload() default {};
 
-    String standartDate()default "1895-12-28";
+    String standardDate()default "1895-12-28";
 }
