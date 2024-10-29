@@ -20,7 +20,7 @@ public class Film {
     private String name;
     @Size(max = 200, message = "Размер не может превышать 200 символов.")
     private String description;
-    @ReleaseDateOfFilm(message = "Введите дату выхода фильма. Обратите внимание, что дата релиза не может быть" +
+    @ReleaseDateOfFilm(standardDate = "1895-12-28", message = "Введите дату выхода фильма. Обратите внимание, что дата релиза не может быть" +
             " ранее 28 декабря 1895 года.")
     private LocalDate releaseDate;
     @Positive(message = "Продолжительность фильма должна быть больше 0.")

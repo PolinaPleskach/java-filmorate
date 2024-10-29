@@ -18,5 +18,5 @@ public @interface ReleaseDateOfFilm {
 
     Class<?>[] payload() default {};
 
-    String standardDate()default "1895-12-28";
+    String standardDate();
 }
