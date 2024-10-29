@@ -38,10 +38,10 @@ public class FilmController {
         return filmService.update(film);
     }
 
-    @PutMapping("/{id}/like/{userId}")
-    public void likeFilm(@PathVariable Long id, @PathVariable Long userId) {
-        log.info("Пользователь {} поставил лайк фильму {}.", userId, id);
-        filmService.addLike(id, userId);
+    @PutMapping("/{filmId}/like/{userId}")
+    public void likeFilm(@PathVariable Long filmId, @PathVariable Long userId) {
+        log.info("Пользователь {} поставил лайк фильму {}.", userId, filmId);
+        filmService.addLike(filmId, userId);
     }
 
     @DeleteMapping("/{id}/like/{userId}")

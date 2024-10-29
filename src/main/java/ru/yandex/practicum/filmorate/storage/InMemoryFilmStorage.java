@@ -25,7 +25,7 @@ public class InMemoryFilmStorage implements FilmStorage {
     public Film create(Film film) {
         log.info("Пришел POST запрос /films с телом: {}.", film);
         film.setId(getNextId());
-        this.films.put(film.getId(), film);
+        films.put(film.getId(), film);
         log.info("Отправлен ответ /films с телом: {}.", film);
         return film;
     }
@@ -33,11 +33,11 @@ public class InMemoryFilmStorage implements FilmStorage {
     @Override
     public Film update(Film film) {
         Long id = film.getId();
-        if (!this.films.containsKey(id)) {
+        if (!films.containsKey(id)) {
             log.info("Фильма с таким id {} не существует.", id);
             throw new NotFoundException("Такого фильма не существует.");
         } else {
-            this.films.put(id, film);
+            films.put(id, film);
             log.info("Фильм под названием {} обновлен.", film.getName());
             return film;
         }
