@@ -2,16 +2,17 @@ package ru.yandex.practicum.filmorate.storage;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
-import ru.yandex.practicum.filmorate.exception.NotFoundException;
 import ru.yandex.practicum.filmorate.model.Film;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
 
-@Slf4j
 @Component
+@Slf4j
 public class InMemoryFilmStorage implements FilmStorage {
     private final Map<Long, Film> films = new HashMap<>();
-
     private long getNextId() {
         long currentMaxId = films.keySet()
                 .stream()
@@ -21,35 +22,25 @@ public class InMemoryFilmStorage implements FilmStorage {
         return ++currentMaxId;
     }
 
-    @Override
+    public Collection<Film> findAll() {
+        return films.values();
+    }
+
+    public Optional<Film> findFilm(Long filmId) {
+        return Optional.ofNullable(films.get(filmId));
+    }
+
     public Film create(Film film) {
-        log.info("Пришел POST запрос /films с телом: {}.", film);
+        log.info("Пришел POST запрос /films с телом: {}", film);
         film.setId(getNextId());
         films.put(film.getId(), film);
-        log.info("Отправлен ответ /films с телом: {}.", film);
+        log.info("Отправлен ответ /films с телом: {}", film);
         return film;
     }
 
-    @Override
-    public Film update(Film film) {
-        Long id = film.getId();
-        if (!films.containsKey(id)) {
-            log.info("Фильма с таким id {} не существует.", id);
-            throw new NotFoundException("Такого фильма не существует.");
-        } else {
-            films.put(id, film);
-            log.info("Фильм под названием {} обновлен.", film.getName());
-            return film;
-        }
-    }
-
-    @Override
-    public Optional<Film> findById(Long id) {
-        return Optional.ofNullable(films.get(id));
-    }
-
-    @Override
-    public List<Film> findAll() {
-        return new ArrayList<>(films.values());
+    public Film update(Film newFilm) {
+        films.put(newFilm.getId(), newFilm);
+        log.info("Фильм под названием {} обновлен", newFilm.getName());
+        return newFilm;
     }
 }
