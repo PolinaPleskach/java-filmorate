@@ -13,6 +13,7 @@ import java.util.Optional;
 @Slf4j
 public class InMemoryFilmStorage implements FilmStorage {
     private final Map<Long, Film> films = new HashMap<>();
+
     private long getNextId() {
         long currentMaxId = films.keySet()
                 .stream()
