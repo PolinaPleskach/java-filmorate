@@ -9,7 +9,7 @@ public class ValidateDate implements ConstraintValidator<ReleaseDateOfFilm, Loca
 
     @Override
     public void initialize(ReleaseDateOfFilm constraintAnnotation) {
-        this.min = LocalDate.parse(constraintAnnotation.standardDate());
+        this.min = LocalDate.parse(constraintAnnotation.standartDate());
     }
 
     @Override
