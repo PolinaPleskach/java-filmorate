@@ -3,7 +3,6 @@ package ru.yandex.practicum.filmorate.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import ru.yandex.practicum.filmorate.exception.DuplicateDataException;
 import ru.yandex.practicum.filmorate.exception.NotFoundException;
 import ru.yandex.practicum.filmorate.exception.ValidationException;
 import ru.yandex.practicum.filmorate.model.Film;
@@ -28,38 +27,21 @@ public class FilmService {
     }
 
     public void addLike(Long filmId, Long userId) {
-        Optional<Film> film = filmStorage.findFilm(filmId);
-        Optional<User> user = userStorage.findUser(userId);
-
-        if (film.isEmpty()) {
-            throw new NotFoundException("Фильма с таким id " + filmId + " не существует. Лайк не проставлен.");
-        } else if (user.isEmpty()) {
-            throw new NotFoundException("Пользователя с таким id " + userId + " не существует. Лайк не проставлен.");
-        } else if (film.get().getLikes().contains(userId)) {
-            throw new DuplicateDataException("Ранее пользователь " + user.get().getName()
-                    + " уже ставил лайк фильму " + film.get().getName());
-        }
-
-        log.info("Пользователь {} ставит лайк фильму {}", user.get().getName(), film.get().getName());
-        film.get().getLikes().add(userId);
+        Film film = filmStorage.findFilm(filmId)
+                .orElseThrow(() -> new NotFoundException("Фильма с таким id " + filmId + " не существует. Лайк не проставлен."));
+        User user = userStorage.findUser(userId)
+                .orElseThrow(() -> new NotFoundException("Пользователя с таким id " + userId + " не существует. Лайк не проставлен."));
+        log.info("Пользователь {} ставит лайк фильму {}", user.getName(), film.getName());
+        film.getLikes().add(userId);
     }
 
     public void deleteLike(Long filmId, Long userId) {
-        Optional<Film> film = filmStorage.findFilm(filmId);
-        Optional<User> user = userStorage.findUser(userId);
-
-        if (film.isEmpty()) {
-            throw new NotFoundException("Фильма с таким id " + filmId + " не существует. Лайк не был удален.");
-        } else if (user.isEmpty()) {
-            throw new NotFoundException("Пользователя с таким id " + userId + " существует. Лайк не был удален.");
-        } else if (!film.get().getLikes().contains(userId)) {
-            throw new DuplicateDataException("Ранее пользователь " + user.get().getName()
-                    + "не ставил лайк фильму " + film.get().getName() + "." +
-                    "невозможно удалить лайк.");
-        }
-
-        log.info("Пользователь {} убирает лайк с фильма {}", user.get().getName(), film.get().getName());
-        film.get().getLikes().remove(userId);
+        Film film = filmStorage.findFilm(filmId)
+                .orElseThrow(() -> new NotFoundException("Фильма с таким id " + filmId + " не существует. Лайк не был удален."));
+        User user = userStorage.findUser(userId)
+                .orElseThrow(() -> new NotFoundException("Пользователя с таким id " + userId + " существует. Лайк не был проставлен."));
+        log.info("Пользователь {} убирает лайк с фильма {}", user.getName(), film.getName());
+        film.getLikes().remove(userId);
     }
 
     public Collection<Film> findPopular(Integer count) {

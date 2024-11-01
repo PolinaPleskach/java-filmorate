@@ -13,20 +13,14 @@ import java.util.Optional;
 @Slf4j
 public class InMemoryUserStorage implements UserStorage {
     private final Map<Long, User> users = new HashMap<>();
+    private long generatorId;
 
     private long getNextId() {
-        long currentMaxId = users.keySet()
-                .stream()
-                .mapToLong(id -> id)
-                .max()
-                .orElse(0);
-        return ++currentMaxId;
+        return ++generatorId;
     }
 
     public User create(User user) {
-        log.info("Пришел POST запрос /users с телом: {}", user);
         user.setId(getNextId());
-        log.info("Отправлен ответ /users с телом: {}", user);
         users.put(user.getId(), user);
         return user;
     }

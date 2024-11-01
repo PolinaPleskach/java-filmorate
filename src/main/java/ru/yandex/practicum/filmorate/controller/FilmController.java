@@ -17,10 +17,18 @@ import java.util.Collection;
 public class FilmController {
     private final FilmService filmService;
 
+    @GetMapping("/{id}")
+    public Film findFilm(@PathVariable long id) {
+        return filmService.findFilm(id);
+    }
+
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Film createFilm(@Valid @RequestBody Film film) {
-        return filmService.createFilm(film);
+        log.info("Пришел POST запрос /films с телом: {}", film);
+        Film createFilm = filmService.createFilm(film);
+        log.info("Отправлен ответ /films с телом: {}", film);
+        return createFilm;
     }
 
     @PutMapping
@@ -34,7 +42,7 @@ public class FilmController {
     }
 
     @DeleteMapping("/{id}/like/{user-id}")
-    public void deleteFriend(@PathVariable("id") Long userId, @PathVariable("user-id") Long friendId) {
+    public void deleteLike(@PathVariable("id") Long userId, @PathVariable("user-id") Long friendId) {
         filmService.deleteLike(userId, friendId);
     }
 

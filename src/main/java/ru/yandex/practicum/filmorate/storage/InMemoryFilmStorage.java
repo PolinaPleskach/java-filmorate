@@ -13,14 +13,10 @@ import java.util.Optional;
 @Slf4j
 public class InMemoryFilmStorage implements FilmStorage {
     private final Map<Long, Film> films = new HashMap<>();
+    private long generatorId;
 
     private long getNextId() {
-        long currentMaxId = films.keySet()
-                .stream()
-                .mapToLong(id -> id)
-                .max()
-                .orElse(0);
-        return ++currentMaxId;
+        return ++generatorId;
     }
 
     public Collection<Film> findAll() {
@@ -32,10 +28,8 @@ public class InMemoryFilmStorage implements FilmStorage {
     }
 
     public Film create(Film film) {
-        log.info("Пришел POST запрос /films с телом: {}", film);
         film.setId(getNextId());
         films.put(film.getId(), film);
-        log.info("Отправлен ответ /films с телом: {}", film);
         return film;
     }
 

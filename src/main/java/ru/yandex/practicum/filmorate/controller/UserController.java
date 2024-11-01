@@ -21,7 +21,10 @@ public class UserController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public User createUser(@Valid @RequestBody User user) {
-        return userService.createUser(user);
+        log.info("Пришел POST запрос /users с телом: {}", user);
+        User createUser = userService.createUser(user);
+        log.info("Отправлен ответ /users с телом: {}", user);
+        return createUser;
     }
 
     @PutMapping
@@ -40,7 +43,7 @@ public class UserController {
     }
 
     @GetMapping("/{id}/friends/common/{other-id}")
-    public Collection<User> findOther(@PathVariable("id") Long userId, @PathVariable("other-id") Long otherId) {
+    public Collection<User> getCommonFriends(@PathVariable("id") Long userId, @PathVariable("other-id") Long otherId) {
         return userService.findOther(userId, otherId);
     }
 
