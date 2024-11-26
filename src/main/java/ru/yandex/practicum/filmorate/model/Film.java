@@ -15,15 +15,15 @@ import java.util.Set;
  */
 @Data
 public class Film {
-    private Long id;
+    Long id;
     @NotBlank(message = "Введите название фильма. Обратите внимание, что поле не может быть пустым.")
-    private String name;
+    String name;
     @Size(max = 200, message = "Размер не может превышать 200 символов.")
-    private String description;
+    String description;
     @ReleaseDateOfFilm(message = "Введите дату выхода фильма. Обратите внимание, что дата релиза не может быть " +
             "ранее 28 декабря 1895 года.")
-    private LocalDate releaseDate;
+    LocalDate releaseDate;
     @Positive(message = "Продолжительность фильма должна быть больше 0.")
-    private Long duration;
-    private final Set<Long> likes = new HashSet<>();
+    Long duration;
+    Set<Long> likes = new HashSet<>();
 }
