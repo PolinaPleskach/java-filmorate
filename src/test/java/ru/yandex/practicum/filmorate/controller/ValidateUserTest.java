@@ -1,15 +1,17 @@
 package ru.yandex.practicum.filmorate.controller;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import ru.yandex.practicum.filmorate.model.User;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;
 import jakarta.validation.ValidatorFactory;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import ru.yandex.practicum.filmorate.model.User;
+
 import java.time.LocalDate;
 import java.util.Set;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 public class ValidateUserTest {
@@ -33,7 +35,7 @@ public class ValidateUserTest {
 
         Set<ConstraintViolation<User>> violations = validator.validate(user);
         assertEquals(1, violations.size());
-        assertEquals("Электронная является обязательным полем, заполните его.", violations.iterator().next().getMessage());
+        assertEquals("Электронная почта является обязательным полем, заполните его.", violations.iterator().next().getMessage());
     }
 
     @Test

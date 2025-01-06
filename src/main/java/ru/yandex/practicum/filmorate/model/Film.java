@@ -3,17 +3,18 @@ package ru.yandex.practicum.filmorate.model;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
+import lombok.AccessLevel;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.experimental.FieldDefaults;
 import ru.yandex.practicum.filmorate.annotation.ReleaseDateOfFilm;
 
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.LinkedHashSet;
 
-/**
- * Film.
- */
 @Data
+@FieldDefaults(level = AccessLevel.PRIVATE)
+@EqualsAndHashCode(of = {"id"})
 public class Film {
     Long id;
     @NotBlank(message = "Введите название фильма. Обратите внимание, что поле не может быть пустым.")
@@ -25,5 +26,7 @@ public class Film {
     LocalDate releaseDate;
     @Positive(message = "Продолжительность фильма должна быть больше 0.")
     Long duration;
-    Set<Long> likes = new HashSet<>();
+    LinkedHashSet<Long> likes = new LinkedHashSet<>();
+    LinkedHashSet<Genre> genres = new LinkedHashSet<>();
+    Mpa mpa;
 }

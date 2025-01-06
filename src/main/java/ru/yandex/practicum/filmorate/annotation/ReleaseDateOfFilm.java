@@ -1,6 +1,7 @@
 package ru.yandex.practicum.filmorate.annotation;
 
 import jakarta.validation.Constraint;
+
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -17,5 +18,5 @@ public @interface ReleaseDateOfFilm {
 
     Class<?>[] payload() default {};
 
-    String standartDate()default "1895-12-28";
+    String standartDate() default "1895-12-28";
 }
