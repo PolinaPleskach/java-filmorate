@@ -35,7 +35,7 @@ public class ValidateUserTest {
 
         Set<ConstraintViolation<User>> violations = validator.validate(user);
         assertEquals(1, violations.size());
-        assertEquals("Электронная является обязательным полем, заполните его.", violations.iterator().next().getMessage());
+        assertEquals("Электронная почта является обязательным полем, заполните его.", violations.iterator().next().getMessage());
     }
 
     @Test

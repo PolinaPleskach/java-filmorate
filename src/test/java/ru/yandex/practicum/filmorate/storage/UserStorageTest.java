@@ -27,7 +27,7 @@ public class UserStorageTest {
 
     @Test
     public void testIsUserWithEmailExist() {
-        assertThat(userStorage.isPreviouslyCreatedEmail("Capitan@yandex.ru")).isTrue();
+        assertThat(userStorage.isPreviouslyCreatedEmail("plskwtzkk@yandex.ru")).isTrue();
     }
 
     @Test
@@ -35,15 +35,15 @@ public class UserStorageTest {
         assertThat(userStorage.findUser(1L))
                 .isInstanceOf(User.class)
                 .hasFieldOrPropertyWithValue("id", 1L)
-                .hasFieldOrPropertyWithValue("name", "Capitan")
-                .hasFieldOrPropertyWithValue("email", "Capitan@yandex.ru");
+                .hasFieldOrPropertyWithValue("name", "Polina")
+                .hasFieldOrPropertyWithValue("email", "plskwtzkk@yandex.ru");
     }
 
     @Test
     public void testGetUsers() {
         assertThat(userStorage.getUsers()).isNotEmpty()
                 .hasSize(3)
-                .filteredOn("name", "Sparrow")
+                .filteredOn("name", "kotik")
                 .isNotEmpty()
                 .hasExactlyElementsOfTypes(User.class);
     }
@@ -55,12 +55,12 @@ public class UserStorageTest {
                 .isInstanceOf(Collection.class)
                 .first()
                 .extracting(User::getName)
-                .isEqualTo("Jack");
+                .isEqualTo("Nikita");
     }
 
     @Test
     public void addFriend() {
-        Pair<String, String> names = new Pair<>("Jack", "Sparrow");
+        Pair<String, String> names = new Pair<>("Nikita", "kotik");
 
         assertThat(userStorage.addFriend(2L, 3L))
                 .isNotNull()
@@ -70,7 +70,7 @@ public class UserStorageTest {
 
     @Test
     public void deleteFriend() {
-        Pair<String, String> names = new Pair<>("Capitan", "Sparrow");
+        Pair<String, String> names = new Pair<>("Polina", "kotik");
 
         assertThat(userStorage.deleteFriend(1L, 3L))
                 .isNotNull()
