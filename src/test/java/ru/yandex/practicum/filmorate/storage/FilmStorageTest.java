@@ -33,14 +33,14 @@ class FilmStorageTest {
         assertThat(filmStorage.findFilm(1L))
                 .isInstanceOf(Film.class)
                 .hasFieldOrPropertyWithValue("id", 1L)
-                .hasFieldOrPropertyWithValue("name", "Тень");
+                .hasFieldOrPropertyWithValue("name", "Гарри Поттер");
     }
 
     @Test
     public void testFindAll() {
         assertThat(filmStorage.findAll()).isNotEmpty()
                 .hasSize(4)
-                .filteredOn("name", "Тень")
+                .filteredOn("name", "Гарри Поттер")
                 .isNotEmpty()
                 .hasExactlyElementsOfTypes(Film.class);
     }
@@ -88,7 +88,7 @@ class FilmStorageTest {
     public void testGetLikes() {
         Film film = new Film();
         film.setId(4L);
-        film.setName("Гадкий я");
+        film.setName("Блондинка в законе");
 
         assertThat(filmStorage.getLikes(film))
                 .isNotEmpty()
@@ -101,7 +101,7 @@ class FilmStorageTest {
     public void testDeleteLike() {
         Film film = new Film();
         film.setId(4L);
-        film.setName("Гадкий я");
+        film.setName("Блондинка в законе");
 
         User user = new User();
         user.setId(3L);
@@ -141,11 +141,11 @@ class FilmStorageTest {
 
         Film film = new Film();
         film.setId(4L);
-        film.setName("Гадкий я");
+        film.setName("Блндинка в законе");
 
         Genre genre = new Genre();
         genre.setId(2L);
-        genre.setName("Драма");
+        genre.setName("Мелодрама");
 
         filmStorage.addGenreId(genre, film);
 
@@ -168,9 +168,9 @@ class FilmStorageTest {
     @Test
     public void testCreateFilm() {
         Film newFilm = new Film();
-        newFilm.setName("Американский ниндзя");
-        newFilm.setDescription("Джо Армстронг, 18-летний рядовой филиппинского отряда армии США, ...");
-        newFilm.setReleaseDate(LocalDate.of(1985, 8, 30));
+        newFilm.setName("Блондинка в законе");
+        newFilm.setDescription("История о сильной женщине");
+        newFilm.setReleaseDate(LocalDate.of(2010, 4, 10));
         newFilm.setDuration(95L);
         newFilm.setMpa(new Mpa());
 
@@ -183,8 +183,8 @@ class FilmStorageTest {
     public void testUpdateFilm() {
         Film newFilm = new Film();
         newFilm.setId(4L);
-        newFilm.setName("Гадкий я");
-        newFilm.setDescription("Гадкий снаружи, но добрый внутри Грю намерен, тем не менее, ...");
+        newFilm.setName("Гарри Поттер");
+        newFilm.setDescription("История о мальчике, который выжил.");
         newFilm.setReleaseDate(LocalDate.of(2000, 1, 1));
         newFilm.setDuration(95L);
 
