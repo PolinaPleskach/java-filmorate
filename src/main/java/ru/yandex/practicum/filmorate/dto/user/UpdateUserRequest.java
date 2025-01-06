@@ -25,7 +25,6 @@ public class UpdateUserRequest {
     @PastOrPresent(message = "Нельзя за дату рождения ставить время в будущем.")
     LocalDate birthday;
     Set<Long> friends = new HashSet<>();
-
     public boolean hasName() {
         return !StringUtils.isBlank(this.name);
     }

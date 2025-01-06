@@ -11,7 +11,7 @@ import ru.yandex.practicum.filmorate.model.Film;
 import java.time.LocalDate;
 import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class ValidateFilmTest {
     private Film film;
@@ -29,7 +29,7 @@ public class ValidateFilmTest {
         film.setId(1L);
         film.setName("");
         film.setDescription("Описание вашего фильма");
-        film.setReleaseDate(LocalDate.of(2024, 12, 5));
+        film.setReleaseDate(LocalDate.of(2024,12,5));
         film.setDuration(120L);
 
         Set<ConstraintViolation<Film>> violations = validator.validate(film);
@@ -43,7 +43,7 @@ public class ValidateFilmTest {
         film.setId(1L);
         film.setName("Название фильма");
         film.setDescription("Описание вашего фильма");
-        film.setReleaseDate(LocalDate.of(1895, 12, 27));
+        film.setReleaseDate(LocalDate.of(1895,12,27));
         film.setDuration(120L);
 
         Set<ConstraintViolation<Film>> violations = validator.validate(film);
@@ -57,7 +57,7 @@ public class ValidateFilmTest {
         film.setId(1L);
         film.setName("Название фильма");
         film.setDescription("");
-        film.setReleaseDate(LocalDate.of(2024, 12, 5));
+        film.setReleaseDate(LocalDate.of(2024,12,5));
         film.setDuration((long) -100);
 
         Set<ConstraintViolation<Film>> violations = validator.validate(film);
