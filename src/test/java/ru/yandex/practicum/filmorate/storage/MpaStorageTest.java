@@ -26,7 +26,8 @@ public class MpaStorageTest {
         assertThat(mpaStorage.findMpa(1L))
                 .isInstanceOf(Mpa.class)
                 .hasFieldOrPropertyWithValue("id", 1L)
-                .hasFieldOrPropertyWithValue("name", "G");;
+                .hasFieldOrPropertyWithValue("name", "G");
+        ;
     }
 
     @Test
